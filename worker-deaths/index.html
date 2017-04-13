@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset='utf-8' />
+    <meta charset='utf-8' lang="he"/>
     <title></title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.35.1/mapbox-gl.js'></script>
@@ -19,15 +19,38 @@
         font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
         direction: rtl;
     }
+
+    @media only screen
+    and (max-device-width: 480px)
+    and (orientation: portrait) {
+        .mapboxgl-popup {
+            max-width: none;
+            width: 100%;
+            position: fixed;
+            max-height: 40%;
+            height: auto;
+            bottom: 0px;
+            top: auto;
+            transform: none !important;
+            z-index: 3;
+        }
+
+        .mapboxgl-popup-tip {
+            display: none;
+        }
+    }
+
+
 </style>
 
 <div id='map' style='width: 100%; height: 100%;'></div>
 
 <script>
   mapboxgl.accessToken = 'pk.eyJ1IjoiYWthcml2IiwiYSI6ImNqMWdkMXd0MzAwMGgycXV4dDVhNWUzam4ifQ.0Q6N5ch8nrnp5sLnCpDYZQ';
+  mapboxgl.setRTLTextPlugin('https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.1.0/mapbox-gl-rtl-text.js');
   var map = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/mapbox/streets-v9',
+    style: 'mapbox://styles/akariv/cj1gm8s60001v2so134zpsj2l',
     center: [35.0756745, 32.021775],
     zoom: 8.53
    });
@@ -47,6 +70,7 @@
         }
     });
     map.addControl(new mapboxgl.NavigationControl());
+    map.addControl(new mapboxgl.GeolocateControl());
      // When a click event occurs on a feature in the places layer, open a popup at the
     // location of the feature, with description HTML from its properties.
     map.on('click', 'places', function (e) {
